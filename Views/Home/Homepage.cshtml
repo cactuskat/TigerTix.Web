@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "HomePage";
+}
+
+<!DOCTYPE
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>TigerTix: @ViewData["Title"]</title>
+</head>
+<body>
+    <h2>Events</h2>
+    <ul>
+        @foreach (var eventItem in Model)
+        {
+            <li>
+                <strong>@eventItem.Name</strong><br />
+                Date: @eventItem.Date.ToShortDateString()<br />
+                Description: @eventItem.Description<br />
+                <a href="@Url.Action("EventDetails", "Home", new { eventName = eventItem.Name })">More Info</a> |
+                <a href="@Url.Action("BuyTicket", "Home", new { eventName = eventItem.Name })">Buy Ticket</a>
+            </li>
+        }
+    </ul>
+</body>
+</html>
