@@ -12,16 +12,22 @@
     <form method="post" action=@Url.Action("Homepage","Home")>
         <label for="email">Email:</label><br />
         <input type="text" id="email" name="email" /><br />
-        
+
         <label for="cuid">CUID (if student):</label><br />
         <input type="text" id="cuid" name="cuid" /><br />
-
-        <label for="username">Username:</label><br />
-        <input type="text" id="username" name="username" /><br />
 
         <label for="password">Password:</label><br />
         <input type="password" id="password" name="password" /><br />
 
+        <p>Please select your account type.</p>
+        <input type="radio" id="student" name="accType" value="student" />
+        <label for="student">Student</label>
+        <input type="radio" id="vendor" name="accType" value="vendor" />
+        <label for="vendor">Vendor</label>
+        <input type="radio" id="other" name="accType" value="other" />
+        <label for="other">Other</label>
+
+        <br />
         <input type="submit" value="Create Account" />
     </form>
 </body>

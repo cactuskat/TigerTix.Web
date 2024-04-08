@@ -22,10 +22,12 @@
                 <strong>@ev.Name</strong> - @ev.Date.ToShortDateString() - $@ev.Price
                 <a href="@Url.Action("EventDetails", "Home", new { eventName = ev.Name })">More Info</a>
                 <form method="post" action="@Url.Action("AddToCart", "Home", new { eventId = ev.Id })">
+                    <input type="hidden" name="eventId" value="@ev.Id" />
                     <input type="submit" value="Buy Ticket" />
                 </form>
             </li>
         }
     </ul>
+    <a href="@Url.Action("CustomerSupport","App")">Customer Support</a>
 </body>
 </html>

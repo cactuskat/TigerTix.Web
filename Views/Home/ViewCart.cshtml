@@ -1,4 +1,5 @@
 ﻿@model List<Event>
+
 @{
     ViewData["Title"] = "Cart View";
 }
@@ -10,11 +11,13 @@
 </head>
 <body>
     <h2>Cart</h2>
-    <ul>
-        @foreach (var ev in Model)
-        {
-            <li>@ev.Name - @ev.Date.ToShortDateString() - $@ev.Price</li>
-        }
-    </ul>
+    @foreach (var ev in Model)
+    {
+        <li> 
+            <strong>@ev.Name</strong> - @ev.Date.ToShortDateString() - $@ev.Price
+            <a href="@Url.Action("RemoveFromCart", "Home", new { eventId = ev.Id })">Remove Item</a>
+        </li>
+    }
+    <a href="@Url.Action("CustomerSupport","App")">Customer Support</a>
 </body>
 </html>

@@ -5,58 +5,21 @@
 <!DOCTYPE <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>TigerTix: @ViewData["Title"]</title>
-        <style>
-        <title > Login Page</title >
-        <style >
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            width: 300px;
-            margin: 0 auto;
-            margin-top: 100px;
-            text-align: center;
-        }
-
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0 15px 0;
-            display: inline-block;
-            border: none;
-            background: #f1f1f1;
-        }
-
-        input[type=submit] {
-            background-color:black;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            opacity: 0.9;
-        }
-
-            input[type=submit]:hover {
-                opacity: 1;
-            }
-    </style>
     </head>
     <body>
         <h2>Login</h2>
-        <form method="post" action=@Url.Action("Homepage","Home")>
-            <label for="username">Username:</label><br />
-            <input type="text" id="username" name="username" /><br />
+    <form method="post" action=@Url.Action("Homepage","Home")>
+        <label for="username">CUID / Email:</label><br />
+        <input type="text" id="username" name="username" /><br />
 
-            <label for="password">Password:</label><br />
-            <input type="password" id="password" name="password" /><br />
+        <label for="password">Password:</label><br />
+        <input type="password" id="password" name="password" /><br />
 
-            <input type="submit" value="Login" />
-        </form>
-        <a href="@Url.Action("Signup","App")">Sign Up!</a>
-        <a href="@Url.Action("CustomerSupport","App")">Customer Support</a>
+        <input type="submit" value="Login" />
+    </form>
+    <br />
+        <a href="@Url.Action("Signup", "App")">Sign Up!</a> <br />
+        <a href="@Url.Action("CustomerSupport", "App")">Customer Support</a>
     </body>
 </html>
 
