@@ -1,0 +1,23 @@
+﻿@model List<Event>
+
+@{
+    ViewData["Title"] = "Cart View";
+}
+
+<!DOCTYPE
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>TigerTix: @ViewData["Title"]</title>
+</head>
+<body>
+    <h2>Cart</h2>
+    @foreach (var ev in Model)
+    {
+        <li> 
+            <strong>@ev.Name</strong> - @ev.Date.ToShortDateString() - $@ev.Price
+            <a href="@Url.Action("RemoveFromCart", "Home", new { eventId = ev.Id })">Remove Item</a>
+        </li>
+    }
+    <a href="@Url.Action("CustomerSupport","App")">Customer Support</a>
+</body>
+</html>

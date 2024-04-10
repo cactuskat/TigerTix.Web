@@ -1,4 +1,7 @@
-﻿@{
+﻿@using TigerTix.Web.Models
+@model List<Event>
+
+@{
     ViewData["Title"] = "HomePage";
 }
 
@@ -9,17 +12,22 @@
 </head>
 <body>
     <h2>Events</h2>
+    <form method="get" action="@Url.Action("ViewCart", "Home")">
+        <input type="submit" value="View Cart" />
+    </form>
     <ul>
-        @foreach (var eventItem in Model)
+        @foreach (var ev in Model)
         {
             <li>
-                <strong>@eventItem.Name</strong><br />
-                Date: @eventItem.Date.ToShortDateString()<br />
-                Description: @eventItem.Description<br />
-                <a href="@Url.Action("EventDetails", "Home", new { eventName = eventItem.Name })">More Info</a> |
-                <a href="@Url.Action("BuyTicket", "Home", new { eventName = eventItem.Name })">Buy Ticket</a>
+                <strong>@ev.Name</strong> - @ev.Date.ToShortDateString() - $@ev.Price
+                <a href="@Url.Action("EventDetails", "Home", new { eventName = ev.Name })">More Info</a>
+                <form method="post" action="@Url.Action("AddToCart", "Home", new { eventId = ev.Id })">
+                    <input type="hidden" name="eventId" value="@ev.Id" />
+                    <input type="submit" value="Buy Ticket" />
+                </form>
             </li>
         }
     </ul>
+    <a href="@Url.Action("CustomerSupport","App")">Customer Support</a>
 </body>
 </html>
