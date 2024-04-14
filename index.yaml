@@ -1,0 +1,196 @@
+openapi: '3.0.0'
+info:
+  title: 'TigerTix API'
+  version: '1.0.0'
+servers:
+  - url: https://TigerTix.com
+
+paths:
+  /Events:
+    get:
+      summary: Return a list of events
+      parameters:
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - name: Tags
+          description: The tags to filter events by
+          in: query
+          schema:
+            type: array
+            uniqueItems: true
+            items:
+              $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Successfully returned a list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '500':
+          $ref: '#/components/schemas/Error500'
+          
+    post:
+      summary: Add a new event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Event was successfully created
+        '400':
+          $ref: '#/components/responses/Error400'
+        '500':
+          $ref: '#/components/schemas/Error500'
+  /Events/{eventId}:
+    parameters:
+      - name: eventId
+        description: The unique identifier of the event
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/EventId'
+          
+    get:
+      summary: Read an event
+      responses:
+        '200': 
+          description: The event corresponding to the 'eventId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/schemas/Error500'
+    
+    delete:
+      summary: Delete an event
+      responses:
+        '200':
+          description: Successfully removed event
+        '400':
+          $ref: '#/components/schemas/Error400'
+        '500':
+          $ref: '#/components/schemas/Error500'
+    
+    put:
+      summary: Update an event
+      responses:
+        '200':
+          description: Successfully updated event
+        '400':
+          $ref: '#/components/schemas/Error400'
+        '500':
+          $ref: '#/components/schemas/Error500'
+    
+    patch:
+      summary: Update tag data of an event
+      responses:
+        '200':
+          description: Tags successfully applied
+        '400':
+          $ref: '#/components/schemas/Error400'
+        '500':
+          $ref: '#/components/schemas/Error500'
+
+components:
+  schemas:
+    Tag:
+      type: string
+      enum:
+        - sports
+        - concert
+        - theater
+        - special
+    EventId:
+      description: The unique identifier of an event
+      type: integer
+    Event:
+      type: object
+      required:
+        - Id
+        - Name
+        - Date
+      properties:
+        Id:
+          $ref: '#/components/schemas/EventId'
+        Name:
+          type: string
+        Date:
+          type: object
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          uniqueItems: true
+        Description:
+          type: string
+    User:
+      type: object
+      required:
+        - Username
+      properties:
+        Username:
+          type: string
+        Firstname:
+          type: string
+        Lastname:
+          type: string
+        CUID:
+          type: string
+        Password:
+          type: string
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: An error message that's readable
+          type: string
+  
+  parameters:
+    StartDate:
+      name: begin
+      in: query
+      description: Lists events that start after specified date
+      schema:
+        type: integer # might need to make a separate definition for datetime
+      
+    EndDate:
+      name: end
+      in: query
+      description: Lists events that start before specified date
+      schema:
+        type: integer
+
+  responses:
+    Error400:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Error404:
+      description: Item not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Error500:
+      description: Internal Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+
