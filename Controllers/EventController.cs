@@ -17,13 +17,13 @@ namespace TigerTix.Web.Controllers
         }
 
         [HttpGet("/Events/:EventId")]
-        public IActionResult GetEventData(EventModel model)
+        public IActionResult GetEventData(Event model)
         {
             return View();
         }
 
         [HttpPut("/Events/:EventId")]
-        public IActionResult UpdEventData(EventModel model)
+        public IActionResult UpdEventData(Event model)
         {
             return View();
         }
