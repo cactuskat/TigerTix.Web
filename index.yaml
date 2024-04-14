@@ -67,6 +67,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Event'
+        '400':
+          $ref: "#/components/responses/Error400"
         '404':
           $ref: '#/components/responses/Error404'
         '500':
@@ -83,6 +85,8 @@ paths:
           $ref: '#/components/schemas/Error500'
     
     put:
+      parameters:
+        - $ref: "#/components/schemas/Event"
       summary: Update an event
       responses:
         '200':
@@ -93,6 +97,15 @@ paths:
           $ref: '#/components/schemas/Error500'
     
     patch:
+      parameters:
+        - name: Tags
+          description: The tags to filter events by
+          in: query
+          schema:
+            type: array
+            uniqueItems: true
+            items:
+              $ref: '#/components/schemas/Tag'
       summary: Update tag data of an event
       responses:
         '200':
@@ -101,6 +114,79 @@ paths:
           $ref: '#/components/schemas/Error400'
         '500':
           $ref: '#/components/schemas/Error500'
+  
+  /Users:
+    get:
+      summary: Return a list of registered users
+      responses:
+        '200':
+          description: Successfully returned a list of registered users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          $ref: "#/components/responses/Error400"
+        '500':
+          $ref: "#/components/responses/Error500"
+    
+    post:
+      summary: Create a new user
+      parameters:
+        - $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Successfully created new user
+        '400':
+          $ref: "#/components/responses/Error400"
+        '500':
+          $ref: "#/components/responses/Error500"
+  /Users/{userId}:
+    parameters:
+      - name: userId
+        description: The unique identifier of the user
+        in: path
+        required: true
+        schema:
+          type: number
+    get:
+      summary: Return information about the user with the corresponding userId
+      responses:
+        '200': 
+          description: Successfully returned user's information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: "#/components/responses/Error400"
+        '404':
+          $ref: "#/components/responses/Error404"
+        '500':
+          $ref: "#/components/responses/Error500"
+    put:
+      parameters:
+        - $ref: "#/components/schemas/User"
+      summary: Update information about the user
+      responses:
+        '200': 
+          description: Successfully updated user's information
+        '400':
+          $ref: "#/components/responses/Error400"
+        '500':
+          $ref: "#/components/responses/Error500"
+    delete:
+      summary: Remove the user
+      responses:
+        '200': 
+          description: Successfully removed user
+        '400':
+          $ref: "#/components/responses/Error400"
+        '500':
+          $ref: "#/components/responses/Error500"
+        
 
 components:
   schemas:
@@ -111,6 +197,18 @@ components:
         - concert
         - theater
         - special
+    Ticket:
+      type: object
+      required:
+        - Id
+      properties:
+        Id:
+          type: integer
+        Reservation:
+          type: string
+        Owner:
+          $ref: "#/components/schemas/User"
+            
     EventId:
       description: The unique identifier of an event
       type: integer
@@ -120,6 +218,7 @@ components:
         - Id
         - Name
         - Date
+        - Price
       properties:
         Id:
           $ref: '#/components/schemas/EventId'
@@ -127,6 +226,8 @@ components:
           type: string
         Date:
           type: object
+        Price:
+          type: number
         Tags:
           type: array
           items:
@@ -138,9 +239,12 @@ components:
       type: object
       required:
         - Username
+        - UserId
       properties:
         Username:
           type: string
+        UserId:
+          type: integer
         Firstname:
           type: string
         Lastname:
