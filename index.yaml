@@ -85,8 +85,12 @@ paths:
           $ref: '#/components/schemas/Error500'
     
     put:
-      parameters:
-        - $ref: "#/components/schemas/Event"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
       summary: Update an event
       responses:
         '200':
@@ -134,8 +138,12 @@ paths:
     
     post:
       summary: Create a new user
-      parameters:
-        - $ref: '#/components/schemas/User'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
       responses:
         '200':
           description: Successfully created new user
@@ -167,8 +175,12 @@ paths:
         '500':
           $ref: "#/components/responses/Error500"
     put:
-      parameters:
-        - $ref: "#/components/schemas/User"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
       summary: Update information about the user
       responses:
         '200': 
