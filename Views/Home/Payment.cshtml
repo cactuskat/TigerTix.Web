@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "Make Payment";
 }
 
@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
     <style>
-        /* Add your CSS styles here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -47,6 +46,10 @@
                 font-size: 16px;
             }
 
+            .form-group input[type="checkbox"] {
+                margin-right: 10px;
+            }
+
             .form-group input[type="submit"] {
                 background-color: #007bff;
                 color: #fff;
@@ -79,15 +82,19 @@
                 <input type="text" id="cvv" name="cvv" placeholder="Enter CVV">
             </div>
             <div class="form-group">
+                <label>
+                    <input type="checkbox" id="saveCardInfo" name="saveCardInfo">
+                    Save Card Information
+                </label>
+            </div>
+            <div class="form-group">
                 <label for="amount">Amount</label>
                 <input type="number" id="amount" name="amount" placeholder="Enter amount">
             </div>
             <div class="form-group">
-                <input type="submit" value="Pay Now">
+                <a href="@Url.Action("Confirm", "Home")">Confirmation</a> <br />
             </div>
         </form>
     </div>
 </body>
-</html>
-
 </html>
