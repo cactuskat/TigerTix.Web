@@ -30,6 +30,11 @@ namespace TigerTix.Web.Controllers
             return View();
         }
         
+        public IActionResult Confirm()
+        {
+            return View();
+        }
+        
         public IActionResult EventDetails(string eventName)
         {
             // Fetch event details based on eventName
