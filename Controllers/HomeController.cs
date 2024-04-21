@@ -25,6 +25,11 @@ namespace TigerTix.Web.Controllers
             return View(events);
         }
 
+        public IActionResult Payment()
+        {
+            return View();
+        }
+        
         public IActionResult EventDetails(string eventName)
         {
             // Fetch event details based on eventName
