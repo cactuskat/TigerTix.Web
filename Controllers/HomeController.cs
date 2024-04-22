@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TigerTix.Web.Models;
@@ -16,7 +16,11 @@ namespace TigerTix.Web.Controllers
             events = new List<Event>
             {
                 new Event { Id = 1, Name = "Soccer Game", Date = new DateTime(2024, 5, 3), Price = 30 },
-                new Event { Id = 2, Name = "Basketball Game", Date = new DateTime(2024, 4, 10), Price = 20 }
+                new Event { Id = 2, Name = "Men's Basketball Game", Date = new DateTime(2024, 4, 10), Price = 20 },
+                new Event { Id = 2, Name = "Volleyball Game", Date = new DateTime(2024, 5, 10), Price = 20 },
+                new Event { Id = 2, Name = "Music Festival", Date = new DateTime(2024, 5, 1), Price = 50 },
+                new Event { Id = 2, Name = "Tennis Game", Date = new DateTime(2024, 5, 20), Price = 15 },
+                new Event { Id = 2, Name = "Women's Basketball Game", Date = new DateTime(2024, 5, 19), Price = 20 }
             };
         }
 
@@ -29,12 +33,12 @@ namespace TigerTix.Web.Controllers
         {
             return View();
         }
-        
+
         public IActionResult Confirm()
         {
             return View();
         }
-        
+
         public IActionResult EventDetails(string eventName)
         {
             // Fetch event details based on eventName
@@ -59,7 +63,7 @@ namespace TigerTix.Web.Controllers
         }
 
         public IActionResult RemoveFromCart(int eventId) {
-            var selectedEvent = events.Find(e => e.Id == eventId);
+            var selectedEvent = cart.Find(e => e.Id == eventId);
             if (selectedEvent != null)
             {
                 selectedEvent.inCart = false;
